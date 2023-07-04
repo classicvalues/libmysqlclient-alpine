@@ -6,9 +6,8 @@ ARG MYSQL_VERSION=8.0.33
 
 RUN cd /tmp \
   && apk --no-cache add build-base cmake eudev-dev gcompat ncurses-dev openssl-dev linux-headers patch \
-  && wget https://dev.mysql.com/get/Downloads/mysql-$MYSQL_VERSION.tar.gz -O - | tar zvxf -
+  && wget https://dev.mysql.com/get/Downloads/mysql-$MYSQL_VERSION.tar.gz -O - | tar zxf -
 
-RUN cd /tmp && tar zxf mysql-$MYSQL_VERSION.tar.gz
 COPY patches /tmp/patches
 
 RUN cd /tmp/mysql-$MYSQL_VERSION \
