@@ -19,8 +19,6 @@ RUN cd /tmp && mkdir -p mysql-$MYSQL_VERSION/build && cd mysql-$MYSQL_VERSION/bu
     && cmake .. -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/tmp -DWITHOUT_SERVER=1 -DWITH_BUILD_ID=0 \
     && make && make install
 
-FROM ruby:3.0.6-alpine$ALPINE_VERSION AS publish
-RUN apk --no-cache add ncurses-libs libgcc libstdc++ build-base openssl-dev ncurses-dev
+FROM alpine:$ALPINE_VERSION AS publish
 COPY --from=builder /usr/local/mysql/include /usr/local/mysql/include
 COPY --from=builder /usr/local/mysql/lib /usr/local/mysql/lib
-RUN gem install mysql2 -- --with-mysql-dir=/usr/local/mysql
